@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hospital Management System API</title>
+</head>
+<body>
+	<h1>Hospital Management System API</h1>
+	<form id="patient-form">
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name"><br><br>
+		
+		<label for="dob">Date of Birth:</label>
+		<input type="text" id="dob" name="dob"><br><br>
+		
+		<label for="gender">Gender:</label>
+		<input type="text" id="gender" name="gender"><br><br>
+		
+		<label for="address">Address:</label>
+		<input type="text" id="address" name="address"><br><br>
+		
+		<label for="phone">Phone:</label>
+		<input type="text" id="phone" name="phone"><br><br>
+		
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email"><br><br>
+		
+		<input type="submit" value="Add Patient">
+	</form>
+
+	<script>
+		const form = document.querySelector('#patient-form');
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			const name = document.querySelector('#name').value;
+			const dob = document.querySelector('#dob').value;
+			const gender = document.querySelector('#gender').value;
+			const address = document.querySelector('#address').value;
+			const phone = document.querySelector('#phone').value;
+			const email = document.querySelector('#email').value;
+
+			const data = {
+				name,
+				dob,
+				gender,
+				address,
+				phone,
+				email
+			};
+
+			const response = await fetch('/api/add-patient', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			});
+
+			if (response.ok) {
+				alert('Patient added successfully');
+				form.reset();
+			} else {
+				alert('An error occurred while adding patient');
+			}
+		});
+	</script>
+</body>
+</html>
